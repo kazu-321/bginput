@@ -10,13 +10,14 @@ class kb(Node):
         self.release_pub=self.create_publisher(String,"on_release",10)
         self.press_key=String()
         self.release_key=String()
-        
+        self.start()
 
     def on_press(self,key):
         try:
             self.press_key.data=key.char
         except AttributeError:
             self.press_key.data=str(key)[4:]
+        print("press   :"+self.release_key.data)
         self.press_pub.publish(self.press_key)
 
     def on_release(self,key):
@@ -24,6 +25,7 @@ class kb(Node):
             self.release_key.data=key.char
         except AttributeError:
             self.release_key.data=str(key)[4:]
+        print("release :"+self.release_key.data)
         self.release_pub.publish(self.release_key)
     
     def start(self):
